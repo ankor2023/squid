@@ -114,6 +114,7 @@ get1byt(void)
     return var;
 }
 
+/*
 static char *
 pstrcpy( char *src, const char *dst)
 {
@@ -125,6 +126,7 @@ pstrcpy( char *src, const char *dst)
     } else
         return src;
 }
+*/
 
 static char *
 pstrcat( char *src, const char *dst)
@@ -236,13 +238,10 @@ getdomaingids(char *ad_groups, uint32_t DomainLogonId, char **Rids, uint32_t Gro
             ag[1] = ag[1]+1;
             memcpy((void *)&ag[2],(const void*)&p[bpos+2],6+nauth*4);
             memcpy((void *)&ag[length],(const void*)Rids[l],4);
-            if (l==0) {
-                if (!pstrcpy(ad_groups,"group=")) {
-                    debug((char *) "%s| %s: WARN: Too many groups ! size > %d : %s\n",
-                          LogTime(), PROGRAM, MAX_PAC_GROUP_SIZE, ad_groups);
-                }
+            if ( l==0 ) {
+                ad_groups[0] = '\0';  // just clean up
             } else {
-                if (!pstrcat(ad_groups," group=")) {
+                if (!pstrcat(ad_groups, ",")) {
                     debug((char *) "%s| %s: WARN: Too many groups ! size > %d : %s\n",
                           LogTime(), PROGRAM, MAX_PAC_GROUP_SIZE, ad_groups);
                 }
@@ -330,7 +329,7 @@ getextrasids(char *ad_groups, uint32_t ExtraSids, uint32_t SidCount)
                     xfree(ag);
                     return nullptr;
                 } else {
-                    if (!pstrcat(ad_groups," group=")) {
+                    if (!pstrcat(ad_groups, ",")) {
                         debug((char *) "%s| %s: WARN: Too many groups ! size > %d : %s\n",
                               LogTime(), PROGRAM, MAX_PAC_GROUP_SIZE, ad_groups);
                     }
@@ -465,7 +464,7 @@ get_resource_groups(char *ad_groups, uint32_t ResourceGroupDomainSid,  uint32_t 
             uint32_t sauth;
             memcpy((void *)&st[group_domain_sid_len], (const void*)&p[bpos], 4);  // rid concatenation
 
-            if (!pstrcat(ad_groups, " group=")) {
+            if (!pstrcat(ad_groups, ",")) {
                 debug((char *) "%s| %s: WARN: Too many groups ! size > %d : %s\n",
                       LogTime(), PROGRAM, MAX_PAC_GROUP_SIZE, ad_groups);
             }
