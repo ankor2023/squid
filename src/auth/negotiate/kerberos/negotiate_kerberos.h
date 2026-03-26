@@ -83,7 +83,7 @@
 #define MAX_AUTHTOKEN_LEN   65535
 #endif
 #ifndef SQUID_KERB_AUTH_VERSION
-#define SQUID_KERB_AUTH_VERSION "3.1.0sq"
+#define SQUID_KERB_AUTH_VERSION "3.2.0sq"
 #endif
 
 char *gethost_name(void);
