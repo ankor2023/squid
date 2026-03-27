@@ -367,7 +367,7 @@ main(int argc, char *const argv[])
     setbuf(stdout, nullptr);
     setbuf(stdin, nullptr);
 
-    while (-1 != (opt = getopt(argc, argv, "dirs:k:c:t:g:"))) {
+    while (-1 != (opt = getopt(argc, argv, "dirs:k:c:t:a:"))) {
         switch (opt) {
         case 'd':
             debug_enabled = 1;
@@ -464,11 +464,11 @@ main(int argc, char *const argv[])
             }
             break;
 #if HAVE_KRB5_PAC_SUPPORT
-        case 'g':
+        case 'a':
             if (optarg)
                 group_attribute_name = optarg;
             else {
-                fprintf(stderr, "ERROR: attribute name not given\n");
+                fprintf(stderr, "ERROR: '-a' value not given\n");
                 exit(EXIT_FAILURE);
             }
             break;
@@ -477,7 +477,7 @@ main(int argc, char *const argv[])
             fprintf(stderr, "Usage: \n");
             fprintf(stderr, "squid_kerb_auth [-d] [-i] [-s SPN] [-k keytab] [-c rcdir] [-t rctype]");
 #if HAVE_KRB5_PAC_SUPPORT
-            fprintf(stderr, " [-g attribute name]");
+            fprintf(stderr, " [-a name]");
 #endif
             fprintf(stderr, "\n");
             fprintf(stderr, "-d full debug\n");
@@ -488,7 +488,8 @@ main(int argc, char *const argv[])
             fprintf(stderr, "-c replay cache directory\n");
             fprintf(stderr, "-t replay cache type\n");
 #if HAVE_KRB5_PAC_SUPPORT
-            fprintf(stderr, "-g group annotaion attribute name (default '%s', you can use 'clt_conn_tag' for connection annotation)\n", group_attribute_name);
+            fprintf(stderr, "-a annotaion name for reporting user groups (e.g., 'clt_conn_tag'); defaults to '%s'\n",
+                    group_attribute_name);
 #endif
             fprintf(stderr,
                     "\nThe SPN can be set to GSS_C_NO_NAME to allow any entry from keytab\n");
