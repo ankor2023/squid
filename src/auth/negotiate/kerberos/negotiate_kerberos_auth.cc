@@ -488,7 +488,7 @@ main(int argc, char *const argv[])
             fprintf(stderr, "-c replay cache directory\n");
             fprintf(stderr, "-t replay cache type\n");
 #if HAVE_KRB5_PAC_SUPPORT
-            fprintf(stderr, "-a annotaion name for reporting user groups (e.g., 'clt_conn_tag'); defaults to '%s'\n",
+            fprintf(stderr, "-a annotation name for reporting user groups (e.g., 'clt_conn_tag'); defaults to '%s'\n",
                     group_attribute_name);
 #endif
             fprintf(stderr,
