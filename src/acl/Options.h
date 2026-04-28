@@ -111,7 +111,8 @@ public:
     /// go back to the default-initialized state
     void reset() { *this = OptionValue<Value>(); }
 
-    const Value *value() const { return enabled() ?  &explicitOrDefaultValue : nullptr; }; ///< accessor
+    /// option value (if the option was enabled) or nil (otherwise)
+    const Value *value() const { return enabled() ?  &explicitOrDefaultValue : nullptr; }
     void setValue(const Value &aValue){ explicitOrDefaultValue = aValue; };
 
     bool configured = false; ///< whether the option was present in squid.conf
