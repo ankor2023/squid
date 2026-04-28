@@ -120,7 +120,8 @@ public:
     bool valued = false; ///< whether a configured option had a value
 
 private:
-    /// Final value storage, possibly after conversions.    
+    /// Value storage after any conversions.
+    /// For an example of a conversion, \see TypedOption<CharacterSetOptionValue>::import().
     /// When `valued` is true, this is an explicitly set value.
     /// Otherwise, this is the default value.
     Value explicitOrDefaultValue;
