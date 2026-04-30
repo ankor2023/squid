@@ -32,8 +32,8 @@ template <>
 inline void
 TypedOption<CharacterSetOptionValue>::printValue(std::ostream &os) const
 {
-    if( recipient_->value() ) recipient_->value()->printChars(os); // TODO: Quote if needed.
-    else os << "[Not set]";
+    Assure(recipient_->value());
+    recipient_->value()->printChars(os); // TODO: Quote if needed.
 }
 
 /// option value to configure one or more characters (e.g., -m=",;")
